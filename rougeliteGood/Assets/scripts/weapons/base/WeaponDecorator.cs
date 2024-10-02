@@ -1,15 +1,16 @@
+using UnityEngine;
+
 public abstract class WeaponDecorator : IWeapon
 {
     protected IWeapon wrappedWeapon;
 
-    public WeaponDecorator(IWeapon wrappedWeapon_)
-    {
-        wrappedWeapon = wrappedWeapon_;
-    }
+    public WeaponData weaponData { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-    public virtual void shoot()
+    public WeaponDecorator(IWeapon wrappedWeapon_) => wrappedWeapon = wrappedWeapon_;
+
+    public virtual void shoot(Vector3 shootPoint, Vector3 shootDirection, LayerMask layerMask)
     {
-        wrappedWeapon.shoot();
+        wrappedWeapon.shoot(shootPoint, shootDirection, layerMask);
     }
     public virtual void reload()
     {
@@ -19,9 +20,9 @@ public abstract class WeaponDecorator : IWeapon
     {
         wrappedWeapon.interact();
     }
-    public virtual void aim()
+    public virtual void aim(GameObject weapon, Vector3 aimPos)
     {
-        wrappedWeapon.aim();
+        wrappedWeapon.aim(weapon, aimPos);
     }
 }
 

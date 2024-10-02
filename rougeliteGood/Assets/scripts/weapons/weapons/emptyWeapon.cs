@@ -7,9 +7,9 @@ public class RENAME : IWeapon
     WeaponData IWeapon.weaponData{get;set;}
     public RENAME()
     {
-        weaponData = new WeaponData();
+        
     }
-    void IWeapon.shoot()
+    void IWeapon.shoot(Vector3 shootPoint, Vector3 shootDirection, LayerMask layerMask)
     {
 
     }
@@ -21,7 +21,7 @@ public class RENAME : IWeapon
     {
 
     }
-    void IWeapon.aim()
+    void IWeapon.aim(GameObject weapon, Vector3 aimPos)
     {
 
     }

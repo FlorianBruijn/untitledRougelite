@@ -5,9 +5,11 @@ using UnityEngine;
 public class WeaponData
 {
     public GameObject gunPrefab;
+    public ShootTypes shootType;
     public int firerate;
-    public int damage;
+    public int randomBulletOffset;
+    public float damage;
     public int critChance;
-    public int critDamage;
+    public float critDamageMult;
     public float aimFOV;
 }
