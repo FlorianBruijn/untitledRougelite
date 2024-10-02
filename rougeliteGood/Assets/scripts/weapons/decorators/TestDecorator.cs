@@ -7,9 +7,9 @@ public class TestDecorator : WeaponDecorator
         _wrappedWeapon.weaponData.aimFOV = 20;
     }
 
-    public override void shoot(Vector3 shootPoint, Vector3 shootDirection, LayerMask layerMask)
+    public override void shoot(Vector3 shootPoint, Vector3 shootDirection, LayerMask layerMask, GameObject trailPrefab)
     {
-        base.shoot(shootPoint, shootDirection, layerMask);
+        base.shoot(shootPoint, shootDirection, layerMask, trailPrefab);
         Debug.Log("spesiaal");
     }
     public override void reload()

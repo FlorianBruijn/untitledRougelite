@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponHandeler : MonoBehaviour
 {
+    [SerializeField] GameObject trailPrefab;
     [SerializeField] LayerMask layerMask;
     [SerializeField] Vector3 aimPos;
     [SerializeField] Vector3 regPos;
@@ -25,6 +26,6 @@ public class WeaponHandeler : MonoBehaviour
         {
         pistol = new TestDecorator(pistol);
         }
-        if (Input.GetMouseButtonDown(0)) pistol.shoot(transform.position, transform.forward, layerMask);
+        if (Input.GetMouseButtonDown(0)) pistol.shoot(transform.position, transform.forward, layerMask, trailPrefab);
     }
 }

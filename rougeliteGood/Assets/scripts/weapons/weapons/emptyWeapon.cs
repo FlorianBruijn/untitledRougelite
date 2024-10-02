@@ -9,7 +9,7 @@ public class RENAME : IWeapon
     {
         
     }
-    void IWeapon.shoot(Vector3 shootPoint, Vector3 shootDirection, LayerMask layerMask)
+    void IWeapon.shoot(Vector3 shootPoint, Vector3 shootDirection, LayerMask layerMask, GameObject trailPrefab)
     {
 
     }

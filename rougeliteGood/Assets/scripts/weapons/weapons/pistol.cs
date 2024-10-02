@@ -17,7 +17,7 @@ public class Pistol : IWeapon
         weaponData.critChance = 50;
         weaponData.critDamageMult = 10;
     }
-    void IWeapon.shoot(Vector3 shootPoint, Vector3 shootDirection, LayerMask layerMask)
+    void IWeapon.shoot(Vector3 shootPoint, Vector3 shootDirection, LayerMask layerMask, GameObject trailPrefab)
     {
         float damage = weaponData.damage;
         if (Random.Range(0,100) < weaponData.critChance) damage *= weaponData.critDamageMult;
@@ -32,8 +32,13 @@ public class Pistol : IWeapon
                 Debug.Log("hit");
                 EnemyHandeler enemyHandeler = hit.collider.gameObject.GetComponent<EnemyHandeler>();
                 enemyHandeler.enemy.GetHit(damage);
+                GameObject trailObject = GameObject.Instantiate(trailPrefab);
+                trailObject.transform.position = shootPoint;
+                //trailObject.transform.position = hit.point;
+                TrailHandeler trailHandeler = trailObject.GetComponent<TrailHandeler>();
+                trailHandeler.moveLocation = hit.point;
             }
-            Debug.DrawRay(shootPoint, offset * 10, Color.yellow, Mathf.Infinity);
+            // Debug.DrawRay(shootPoint, offset * 10, Color.yellow, Mathf.Infinity);
 
         }
     }

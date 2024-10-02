@@ -527,9 +527,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51cc0d2ff1863e459c90aa78fb99a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trailPrefab: {fileID: 4340446895601810344, guid: 1a8103cda4842f24090caa42b479773a,
+    type: 3}
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   aimPos: {x: 0, y: -0.68, z: 0.6}
   regPos: {x: 0.45, y: -0.8, z: 0.9}
   gun: {fileID: 1732127583}
