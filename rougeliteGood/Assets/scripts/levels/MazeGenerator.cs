@@ -11,19 +11,21 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField] Vector2Int mazeSize;
     [SerializeField] int seed;
     [SerializeField] bool random;
+    MeshCollider meshCollider;
     bool drawnMaze;
     Vector2Int cell = new Vector2Int(0, 0);
     GameObject[,] floors;
     bool[,] done;
     int doneCount;
     List<Vector2Int> route = new List<Vector2Int>();
-    bool[,] northFacingWalls;
+    bool[,] revNorthFacingWalls;
     GameObject[,] northFacingWallsGO;
-    bool[,] eastFacingWalls;
+    bool[,] revEastFacingWalls;
     GameObject[,] eastFacingWallsGO;
 
     void Start()
     {
+        meshCollider = GetComponent<MeshCollider>();
         // Initialize the random seed if random generation is enabled
         if (random) seed = Random.Range(int.MinValue, int.MaxValue);
         Random.InitState(seed);
@@ -34,31 +36,17 @@ public class MazeGenerator : MonoBehaviour
         {
             for (int y = 0; y < mazeSize.y; y++)
             {
-                floors[x, y] = Instantiate(floorPrefab);
+                floors[x, y] = Instantiate(floorPrefab, transform);
                 floors[x, y].transform.position = new Vector3(x * tileSize, 0, y * tileSize);
                 floors[x, y].transform.localScale = new Vector3(tileSize, 1, tileSize);
             }
         }
 
         // Initialize north-facing walls
-        northFacingWalls = new bool[mazeSize.x, mazeSize.y + 1];
-        for (int x = 0; x < northFacingWalls.GetLength(0); ++x)
-        {
-            for (int y = 0; y < northFacingWalls.GetLength(1); ++y)
-            {
-                northFacingWalls[x, y] = true; // Set all north walls as true (existing)
-            }
-        }
+        revNorthFacingWalls = new bool[mazeSize.x, mazeSize.y + 1];
 
         // Initialize east-facing walls
-        eastFacingWalls = new bool[mazeSize.x + 1, mazeSize.y];
-        for (int x = 0; x < eastFacingWalls.GetLength(0); ++x)
-        {
-            for (int y = 0; y < eastFacingWalls.GetLength(1); ++y)
-            {
-                eastFacingWalls[x, y] = true; // Set all east walls as true (existing)
-            }
-        }
+        revEastFacingWalls = new bool[mazeSize.x + 1, mazeSize.y];
 
         done = new bool[mazeSize.x, mazeSize.y]; // Track completed cells
 
@@ -81,19 +69,19 @@ public class MazeGenerator : MonoBehaviour
                 // Update the wall arrays based on the chosen move
                 if (chosenMove == Vector2Int.up)
                 {
-                    northFacingWalls[cell.x, cell.y + 1] = false; // Remove north wall
+                    revNorthFacingWalls[cell.x, cell.y + 1] = true; // Remove north wall
                 }
                 else if (chosenMove == Vector2Int.down)
                 {
-                    northFacingWalls[cell.x, cell.y] = false; // Remove south wall
+                    revNorthFacingWalls[cell.x, cell.y] = true; // Remove south wall
                 }
                 else if (chosenMove == Vector2Int.right)
                 {
-                    eastFacingWalls[cell.x + 1, cell.y] = false; // Remove east wall
+                    revEastFacingWalls[cell.x + 1, cell.y] = true; // Remove east wall
                 }
                 else if (chosenMove == Vector2Int.left)
                 {
-                    eastFacingWalls[cell.x, cell.y] = false; // Remove west wall
+                    revEastFacingWalls[cell.x, cell.y] = true; // Remove west wall
                 }
 
                 // Add the current cell to the route and mark it as done
@@ -113,32 +101,33 @@ public class MazeGenerator : MonoBehaviour
                 break; // Exit the loop if all cells are done
             }
         }
+        Debug.Log("instansiate");
         
         // Instantiate north-facing walls based on the wall array
         northFacingWallsGO = new GameObject[mazeSize.x, mazeSize.y + 1];
-        for (int x = 0; x < northFacingWalls.GetLength(0); ++x)
+        Debug.Log(northFacingWallsGO.Length);
+        for (int x = 0; x < revNorthFacingWalls.GetLength(0); ++x)
         {
-            for (int y = 0; y < northFacingWalls.GetLength(1); ++y)
+            for (int y = 0; y < revNorthFacingWalls.GetLength(1); ++y)
             {
-                if (northFacingWalls[x, y]) // If a north-facing wall exists
+                if (!revNorthFacingWalls[x, y]) // If a north-facing wall exists
                 {
-                    northFacingWallsGO[x, y] = Instantiate(northFacingWallPrefab); // Create wall GameObject
+                    northFacingWallsGO[x, y] = Instantiate(northFacingWallPrefab, transform); // Create wall GameObject
                     northFacingWallsGO[x, y].transform.position = new Vector3(x * tileSize, 0, y * tileSize); // Set position
                     northFacingWallsGO[x, y].transform.localScale = new Vector3(tileSize, tileSize, tileSize); // Set scale
-                    northFacingWallsGO[x, y].name = "north" + x + "," + y; // Name the GameObject
                 }
             }
         }
 
         // Instantiate east-facing walls based on the wall array
         eastFacingWallsGO = new GameObject[mazeSize.x + 1, mazeSize.y];
-        for (int x = 0; x < eastFacingWalls.GetLength(0); ++x)
+        for (int x = 0; x < revEastFacingWalls.GetLength(0); ++x)
         {
-            for (int y = 0; y < eastFacingWalls.GetLength(1); ++y)
+            for (int y = 0; y < revEastFacingWalls.GetLength(1); ++y)
             {
-                if (eastFacingWalls[x, y]) // If an east-facing wall exists
+                if (!revEastFacingWalls[x, y]) // If an east-facing wall exists
                 {
-                    eastFacingWallsGO[x, y] = Instantiate(eastFacingWallPrefab); // Create wall GameObject
+                    eastFacingWallsGO[x, y] = Instantiate(eastFacingWallPrefab, transform); // Create wall GameObject
                     eastFacingWallsGO[x, y].transform.position = new Vector3(x * tileSize, 0, y * tileSize); // Set position
                     eastFacingWallsGO[x, y].transform.localScale = new Vector3(tileSize, tileSize, tileSize); // Set scale
                     eastFacingWallsGO[x, y].name = "east" + x + "," + y; // Name the GameObject
@@ -146,8 +135,28 @@ public class MazeGenerator : MonoBehaviour
             }
         }
         done = null;
-        eastFacingWalls = null;
-        northFacingWalls = null;
+        revEastFacingWalls = null;
+        revNorthFacingWalls = null;
+        MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
+        CombineInstance[] combine = new CombineInstance[meshFilters.Length];
+
+        int i = 0;
+        while (i < meshFilters.Length)
+        {
+            combine[i].mesh = meshFilters[i].sharedMesh;
+            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+            i++;
+        }
+
+        Mesh mesh = new Mesh(); mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        mesh.CombineMeshes(combine);
+        meshCollider.sharedMesh = mesh;
+        transform.GetComponent<MeshFilter>().sharedMesh = mesh;
+        transform.gameObject.SetActive(true);
+        foreach(Transform child in gameObject.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     // Method to check possible moves from the current cell

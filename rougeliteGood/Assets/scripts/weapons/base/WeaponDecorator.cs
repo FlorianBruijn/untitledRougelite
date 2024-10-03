@@ -8,9 +8,9 @@ public abstract class WeaponDecorator : IWeapon
 
     public WeaponDecorator(IWeapon wrappedWeapon_) => wrappedWeapon = wrappedWeapon_;
 
-    public virtual void shoot(Vector3 shootPoint, Vector3 shootDirection, LayerMask layerMask, GameObject trailPrefab)
+    public virtual void shoot(Vector3 shootPoint, Vector3 shootDirection, LayerMask layerMask, ParticleSystem  particleSystem, GameObject impactPrefab)
     {
-        wrappedWeapon.shoot(shootPoint, shootDirection, layerMask, trailPrefab);
+        wrappedWeapon.shoot(shootPoint, shootDirection, layerMask, particleSystem, impactPrefab);
     }
     public virtual void reload()
     {
