@@ -22,7 +22,6 @@ public class MouseLook : MonoBehaviour
 
         // Calculate the x-axis rotation and clamp it
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         // Apply the rotation to the camera
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);

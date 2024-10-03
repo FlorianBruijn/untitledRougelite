@@ -7,7 +7,7 @@ public class WeaponData
     public GameObject gunPrefab;
     public ShootTypes shootType;
     public int firerate;
-    public int randomBulletOffset;
+    public float randomBulletOffset;
     public float damage;
     public int critChance;
     public float critDamageMult;

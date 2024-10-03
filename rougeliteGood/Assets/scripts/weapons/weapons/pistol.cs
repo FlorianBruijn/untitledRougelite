@@ -34,7 +34,7 @@ public class Pistol : IWeapon
                 EnemyHandeler enemyHandeler = hit.collider.gameObject.GetComponent<EnemyHandeler>();
                 if (enemyHandeler != null) enemyHandeler.enemy.GetHit(damage);
                 GameObject ips = GameObject.Instantiate(impactPrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                GameObject.Destroy(ips, 2);
+                GameObject.Destroy(ips, 0.5f);
             }
             // Debug.DrawRay(shootPoint, offset * 10, Color.yellow, Mathf.Infinity);
 

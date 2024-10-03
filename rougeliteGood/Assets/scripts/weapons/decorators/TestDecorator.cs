@@ -5,6 +5,7 @@ public class TestDecorator : WeaponDecorator
     public TestDecorator(IWeapon _wrappedWeapon) : base (_wrappedWeapon)
     {
         _wrappedWeapon.weaponData.aimFOV = 20;
+        _wrappedWeapon.weaponData.randomBulletOffset *= 0.5f;
     }
 
     public override void shoot(Vector3 shootPoint, Vector3 shootDirection, LayerMask layerMask, ParticleSystem  particleSystem, GameObject impactPrefab)
