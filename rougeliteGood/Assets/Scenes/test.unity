@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028653, g: 0.22571698, b: 0.30692574, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028605, g: 0.22571611, b: 0.30692455, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -837,7 +837,7 @@ MonoBehaviour:
   eastFacingWallPrefab: {fileID: 6877833666984288008, guid: 0c9d44cbf60322f42bf731c033e081db,
     type: 3}
   tileSize: 10
-  mazeSize: {x: 100, y: 100}
+  mazeSize: {x: 10, y: 10}
   seed: 0
   random: 1
 --- !u!4 &1488167954
