@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEngine;
 
-public class Pistol : IWeapon
+public class Pistol : MonoBehaviour , IWeapon
 {
     public WeaponData weaponData{get;set;}
     public Pistol()
