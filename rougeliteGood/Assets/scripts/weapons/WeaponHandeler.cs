@@ -23,10 +23,10 @@ public class WeaponHandeler : MonoBehaviour
             Camera.main.fieldOfView = 60;
             gun.transform.localPosition = regPos;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-        pistol = new TestDecorator(pistol);
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        // pistol = new TestDecorator(pistol);
+        // }
         if (Input.GetMouseButtonDown(0)) pistol.shoot(transform.position, transform.forward, layerMask, particleSystem_, impactPrefab);
     }
 }

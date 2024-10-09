@@ -25,7 +25,7 @@ public class Pistol : MonoBehaviour , IWeapon
         particleSystem.Play();
         for (int i = 0; i < 10; i++)
         {
-            Vector3 offset = Quaternion.Euler(Random.Range(-weaponData.randomBulletOffset*100, weaponData.randomBulletOffset*100)/100,Random.Range(-weaponData.randomBulletOffset*100, weaponData.randomBulletOffset*100)/100, 0f) * shootDirection;
+            Vector3 offset = Quaternion.Euler(Random.Range(-weaponData.randomBulletOffset*100, weaponData.randomBulletOffset*100)/100,Random.Range(-weaponData.randomBulletOffset*100, weaponData.randomBulletOffset*100)/100, Random.Range(-weaponData.randomBulletOffset*100, weaponData.randomBulletOffset*100)/100) * shootDirection;
             RaycastHit hit;
             Ray ray = new Ray(shootPoint, offset);
             if (Physics.Raycast(ray, out hit))
